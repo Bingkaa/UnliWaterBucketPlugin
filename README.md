@@ -14,7 +14,7 @@ Add this to your server to enhance the quality of life of your players!
 
 ## Installation
 
-1. Download the latest version of UnlimitedWaterBucket.jar from the [releases](https://github.com/Bingkaa/UnlimitedWaterBucket/releases) page.
+1. Download the latest version of UnlimitedWaterBucket.jar from the [releases](https://github.com/Bingkaa/UnliWaterBucketPlugin/releases) page.
 2. Place the downloaded jar file into the `plugins` directory of your Bukkit/Spigot server.
 3. Restart or reload your server.
 
