@@ -1,0 +1,9 @@
+name: UnlimitedWaterBucket
+version: '1.0-SNAPSHOT'
+main: me.bingka.unlimitedwaterbucket.UnlimitedWaterBucket
+api-version: '1.20'
+
+commands:
+  unliwater:
+    description: Gives the player an unlimited water bucket
+    usage: /unliwater
