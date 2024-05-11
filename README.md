@@ -1,4 +1,4 @@
-# UnlimitedWaterBucket Plugin for Minecraft
+![Unlimited Water Bucket](README/Github%20Banner.png)
 
 UnlimitedWaterBucket is a Minecraft Bukkit/Spigot plugin that adds functionality for players to obtain and use unlimited water buckets within the game.
 This is only compatible with Pyrofarming to remove the need for refilling buckets when watering your growstations.
