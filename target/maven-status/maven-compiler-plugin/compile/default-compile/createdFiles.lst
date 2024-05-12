@@ -1,5 +1,6 @@
-me\bingka\unlimitedwaterbucket\WaterBucketListener.class
+me\bingka\unlimitedwaterbucket\commands\GiveCommand.class
+me\bingka\unlimitedwaterbucket\listeners\WaterBucketListener.class
 me\bingka\unlimitedwaterbucket\UnlimitedWaterBucket.class
-me\bingka\unlimitedwaterbucket\Utils.class
-me\bingka\unlimitedwaterbucket\Commands.class
-me\bingka\unlimitedwaterbucket\Utils$1.class
+me\bingka\unlimitedwaterbucket\utilities\BucketUtils$1.class
+me\bingka\unlimitedwaterbucket\utilities\BucketUtils.class
+me\bingka\unlimitedwaterbucket\utilities\CreateBucket.class
