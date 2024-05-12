@@ -1,5 +1,6 @@
-package me.bingka.unlimitedwaterbucket;
+package me.bingka.unlimitedwaterbucket.utilities;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -9,7 +10,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.Bukkit;
 import java.util.List;
 
-public class Utils {
+public class BucketUtils {
     public static int countEmptyBuckets(Player player) {
         int count = 0;
         Inventory inv = player.getInventory();
@@ -24,9 +25,9 @@ public class Utils {
     public static boolean hasUnlimitedWater(ItemStack item) {
         if (item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
-            if (meta.hasDisplayName() && meta.getDisplayName().equals("Unlimited Water Bucket")) {
+            if (meta.hasDisplayName() && meta.getDisplayName().equals(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Unlimited Water Bucket")) {
                 List<String> lore = meta.getLore();
-                if (lore != null && lore.contains("Unlimited Water")) {
+                if (lore != null && lore.contains("Unlimited Water Bucket for PyroFarming") && lore.contains("Use these on your growstations!")) {
                     return true;
                 }
             }

@@ -1,6 +1,9 @@
-package me.bingka.unlimitedwaterbucket;
+package me.bingka.unlimitedwaterbucket.listeners;
 
+import me.bingka.unlimitedwaterbucket.UnlimitedWaterBucket;
+import me.bingka.unlimitedwaterbucket.utilities.BucketUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -8,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 public class WaterBucketListener implements Listener {
     private final UnlimitedWaterBucket plugin;
@@ -21,24 +23,24 @@ public class WaterBucketListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-        int emptyBucketsBefore = Utils.countEmptyBuckets(player);
+        int emptyBucketsBefore = BucketUtils.countEmptyBuckets(player);
 
         // Check if the player interacts with a block while holding a water bucket
-        if (item != null && item.getType() == Material.WATER_BUCKET && Utils.hasUnlimitedWater(item)) {
+        if (item != null && item.getType() == Material.WATER_BUCKET && BucketUtils.hasUnlimitedWater(item)) {
             Block clickedBlock = event.getClickedBlock();
-            if (clickedBlock != null && Utils.isGrowstation(clickedBlock.getType())) {
-                player.sendMessage("You used the unlimited water bucket on a growstation!");
-                Utils.returnBucket(player, item);
+            if (clickedBlock != null && BucketUtils.isGrowstation(clickedBlock.getType())) {
+                BucketUtils.returnBucket(player, item);
 
                 // Schedule a delayed task to update empty bucket count after returning the bucket
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                    int emptyBucketsAfter = Utils.countEmptyBuckets(player);
+                    int emptyBucketsAfter = BucketUtils.countEmptyBuckets(player);
                     if (emptyBucketsAfter > emptyBucketsBefore) {
-                        Utils.destroyEmptyBucket(player);
+                        player.sendMessage(ChatColor.DARK_PURPLE + "You used the unlimited water bucket on a growstation!");
+                        BucketUtils.destroyEmptyBucket(player);
                     }
                 }, 1); // Adjust the delay if needed, 1 tick usually suffices
             } else {
-                player.sendMessage("You can only use this water bucket on growstations.");
+                player.sendMessage(ChatColor.RED + "You can only use this water bucket on growstations.");
                 event.setCancelled(true);
             }
         }
