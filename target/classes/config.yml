@@ -1,0 +1,14 @@
+bucket:
+  # Display name
+  name: "&5&lUnlimited Water Bucket"
+
+  # Lore
+  lore:
+    - "Unlimited Water Bucket for Pyrofarming"
+    - "Use these on growstations!"
+
+  # Message when used on growstation
+  growstation_message: "&5You used the unlimited water bucket on a growstation!"
+
+  # Message when used on anything else
+  error_message: "&cYou can only use this water bucket on growstations!"
