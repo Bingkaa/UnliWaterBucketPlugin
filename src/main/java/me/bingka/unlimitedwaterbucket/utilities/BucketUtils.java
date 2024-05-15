@@ -1,16 +1,20 @@
 package me.bingka.unlimitedwaterbucket.utilities;
 
-import org.bukkit.ChatColor;
+import me.bingka.unlimitedwaterbucket.UnlimitedWaterBucket;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.Bukkit;
-import java.util.List;
 
 public class BucketUtils {
+    private static final NamespacedKey KEY = UnlimitedWaterBucket.getInstance().createKey("bucket_data");
+
     public static int countEmptyBuckets(Player player) {
         int count = 0;
         Inventory inv = player.getInventory();
@@ -25,11 +29,10 @@ public class BucketUtils {
     public static boolean hasUnlimitedWater(ItemStack item) {
         if (item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
-            if (meta.hasDisplayName() && meta.getDisplayName().equals(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Unlimited Water Bucket")) {
-                List<String> lore = meta.getLore();
-                if (lore != null && lore.contains("Unlimited Water Bucket for PyroFarming") && lore.contains("Use these on your growstations!")) {
-                    return true;
-                }
+            PersistentDataContainer bucketMeta = meta.getPersistentDataContainer();
+
+            if (bucketMeta.has(KEY, PersistentDataType.BOOLEAN)) {
+                return bucketMeta.get(KEY, PersistentDataType.BOOLEAN); // Returns true or false depending if the bucket has the key
             }
         }
         return false;
