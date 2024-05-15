@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class GiveCommand implements CommandExecutor {
     @Override
@@ -16,8 +17,9 @@ public class GiveCommand implements CommandExecutor {
             if (p.hasPermission("unliwater.givebucket")) {
                 if (args.length == 0) {
                     ItemStack bucket = CreateBucket.createUnlimitedWaterBucket();
+                    ItemMeta bucketMeta = bucket.getItemMeta();
                     p.getInventory().addItem(bucket);
-                    p.sendMessage("You have obtained an " + ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "unlimited water bucket!");
+                    p.sendMessage("You have obtained " + bucketMeta.getDisplayName());
                 } else {
                     Player target = Bukkit.getPlayerExact(args[0]);
 
@@ -27,8 +29,9 @@ public class GiveCommand implements CommandExecutor {
                     }
 
                     ItemStack bucket = CreateBucket.createUnlimitedWaterBucket();
+                    ItemMeta bucketMeta = bucket.getItemMeta();
                     target.getInventory().addItem(bucket);
-                    target.sendMessage("You have obtained an " + ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "unlimited water bucket!");
+                    target.sendMessage("You have obtained " + bucketMeta.getDisplayName());
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "You do not have permission to run this command.");

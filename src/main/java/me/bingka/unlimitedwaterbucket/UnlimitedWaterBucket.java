@@ -13,6 +13,7 @@ public final class UnlimitedWaterBucket extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new WaterBucketListener(this), this);
         Objects.requireNonNull(getCommand("unliwater")).setExecutor(new GiveCommand());
         getLogger().info("UnlimitedWaterPlugin has been enabled!");

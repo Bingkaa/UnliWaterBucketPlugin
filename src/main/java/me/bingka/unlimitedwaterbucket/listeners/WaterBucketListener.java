@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class WaterBucketListener implements Listener {
     private final UnlimitedWaterBucket plugin;
+    private final FileConfiguration config = UnlimitedWaterBucket.getInstance().getConfig();
 
     public WaterBucketListener(UnlimitedWaterBucket plugin) {
         this.plugin = plugin;
@@ -35,12 +37,14 @@ public class WaterBucketListener implements Listener {
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     int emptyBucketsAfter = BucketUtils.countEmptyBuckets(player);
                     if (emptyBucketsAfter > emptyBucketsBefore) {
-                        player.sendMessage(ChatColor.DARK_PURPLE + "You used the unlimited water bucket on a growstation!");
+                        String message = ChatColor.translateAlternateColorCodes('&', config.getString("bucket.growstation_message", "&5You used the unlimited water bucket on a growstation!"));
+                        player.sendMessage(message);
                         BucketUtils.destroyEmptyBucket(player);
                     }
                 }, 1); // Adjust the delay if needed, 1 tick usually suffices
             } else {
-                player.sendMessage(ChatColor.RED + "You can only use this water bucket on growstations.");
+                String message = ChatColor.translateAlternateColorCodes('&', config.getString("bucket.error_message", "&cYou can only use this water bucket on growstations."));
+                player.sendMessage(message);
                 event.setCancelled(true);
             }
         }
