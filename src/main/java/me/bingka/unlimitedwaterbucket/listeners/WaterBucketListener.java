@@ -10,7 +10,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class WaterBucketListener implements Listener {
@@ -26,6 +28,12 @@ public class WaterBucketListener implements Listener {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         int emptyBucketsBefore = BucketUtils.countEmptyBuckets(player);
+
+        // Ensure interaction is with the main hand to avoid duplicate handling
+        if (event.getHand() != EquipmentSlot.HAND || event.getAction() != Action.RIGHT_CLICK_BLOCK || player.isSneaking()) {
+            event.setCancelled(true);
+            return;
+        }
 
         // Check if the player interacts with a block while holding a water bucket
         if (item != null && item.getType() == Material.WATER_BUCKET && BucketUtils.hasUnlimitedWater(item)) {
