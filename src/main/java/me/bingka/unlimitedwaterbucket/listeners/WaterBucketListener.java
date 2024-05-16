@@ -29,14 +29,19 @@ public class WaterBucketListener implements Listener {
         ItemStack item = event.getItem();
         int emptyBucketsBefore = BucketUtils.countEmptyBuckets(player);
 
-        // Ensure interaction is with the main hand to avoid duplicate handling
-        if (event.getHand() != EquipmentSlot.HAND || event.getAction() != Action.RIGHT_CLICK_BLOCK || player.isSneaking()) {
-            event.setCancelled(true);
-            return;
-        }
-
         // Check if the player interacts with a block while holding a water bucket
         if (item != null && item.getType() == Material.WATER_BUCKET && BucketUtils.hasUnlimitedWater(item)) {
+            // Ensure interaction is with the main hand to avoid duplicate handling
+            if (player.isSneaking()) {
+                event.setCancelled(true);
+                return;
+            }
+
+            // Checks if breaking instead of placing, if breaking just act as usual
+            if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                return;
+            }
+
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock != null && BucketUtils.isGrowstation(clickedBlock.getType())) {
                 BucketUtils.returnBucket(player, item);
