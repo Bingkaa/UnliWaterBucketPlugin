@@ -50,14 +50,18 @@ public class WaterBucketListener implements Listener {
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     int emptyBucketsAfter = BucketUtils.countEmptyBuckets(player);
                     if (emptyBucketsAfter > emptyBucketsBefore) {
-                        String message = ChatColor.translateAlternateColorCodes('&', config.getString("bucket.growstation_message", "&5You used the unlimited water bucket on a growstation!"));
-                        player.sendMessage(message);
+                        String message = ChatColor.translateAlternateColorCodes('&', config.getString("bucket.growstation_message", ""));
+                        if (!message.equals("")) {
+                            player.sendMessage(message);
+                        }
                         BucketUtils.destroyEmptyBucket(player);
                     }
                 }, 1); // Adjust the delay if needed, 1 tick usually suffices
             } else {
-                String message = ChatColor.translateAlternateColorCodes('&', config.getString("bucket.error_message", "&cYou can only use this water bucket on growstations."));
-                player.sendMessage(message);
+                String message = ChatColor.translateAlternateColorCodes('&', config.getString("bucket.error_message", ""));
+                if (!message.equals("")) {
+                    player.sendMessage(message);
+                }
                 event.setCancelled(true);
             }
         }
